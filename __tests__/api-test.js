@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import fs from 'fs';
-import { getUsers, getUser, validateUserId, getPostsForUser } from '../index';
+import { getUsers, getUser, validateUserId, getPostsForUser, createPostForUser } from '../index';
 
 // change this value to test with different userId
 // should be a number between 1 and 10
@@ -53,6 +53,21 @@ describe('Get user data', () => {
       });
       // it can be an assertion if the user does not have any post but this test reason is to validate the post's ids. 
       //If the user does not have any post we can not validate it.
+    });
+  });
+
+  // Task 3
+  describe('createPostForUser', () => {
+    it('creates a post for the chosen USER_ID and verifies the response', async () => {
+      // Call the createPostForUser function with the chosen USER_ID
+      const response = await createPostForUser(USER_ID);
+
+      // Verify the response code in this case is undefined. We can add an expected variable if we want to change it later. 
+      // Ideally we should create a separate data file with the different response codes.
+      expect(response.statusCode).toBe();
+
+      // Verify the create Post function
+
     });
   });
 
