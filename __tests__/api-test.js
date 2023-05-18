@@ -31,10 +31,8 @@ describe('getUser', () => {
 
       // Call the getUser function with the chosen USER_ID
       const userData = await getUser(USER_ID);
-      console.log(userData)
       // Find the user data from the test data based on the USER_ID
       const expectedUser = expectedUserData.find(user => user.id === USER_ID);
-       console.log(expectedUser)
       // Verify that the returned data matches the expected data
       expect(userData).toEqual(expectedUser);
     });
