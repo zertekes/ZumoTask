@@ -1,7 +1,6 @@
 import { jest } from '@jest/globals';
 import { getUsers, getUser, validateUserId } from "../index";
 import fs from 'fs';
-import * as api from '../index';
 
 // change this value to test with different userId
 // should be a number between 1 and 10
@@ -19,16 +18,16 @@ describe('Mock API tests', () => {
   });
 });
 
-  describe('getUser', () => {
+describe('getUser', () => {
     it('returns expected user data for chosen USER_ID', async () => {
       // Load the expected data from the JSON file
       const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
 
       // Mock the getUsers function to return the test data
-      jest.spyOn(api, 'getUsers').mockResolvedValue(expectedUserData);
+      jest.spyOn(global, 'getUsers').mockResolvedValue(expectedUserData);
 
       // Mock the validateUserId function to prevent errors
-      jest.spyOn(api, 'validateUserId').mockImplementation(() => {});
+      jest.spyOn(global, 'validateUserId').mockImplementation(() => {});
 
       // Call the getUser function with the chosen USER_ID
       const userData = await getUser(USER_ID);
@@ -39,4 +38,4 @@ describe('Mock API tests', () => {
       // Verify that the returned data matches the expected data
       expect(userData).toEqual(expectedUser);
     });
-});
+  });
