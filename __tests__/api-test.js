@@ -18,25 +18,21 @@ describe('Mock API tests', () => {
   });
 });
 
-// Assuming you have imported the necessary dependencies and functions
 
 describe('getUser', () => {
     it('returns expected user data for chosen USER_ID', async () => {
       // Choose a USER_ID for testing
       const USER_ID = 1;
-      
-      // Mock the API request to return a known user object
-      const expectedUserData = {
-        id: USER_ID,
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        // Add other expected properties based on the JSON Placeholder docs
-      };
+  
+      // Load the expected data from the JSON file
+      const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
+  
+      // Mock the API request to return the expected data
       jest.spyOn(api, 'getUser').mockResolvedValue(expectedUserData);
-      
+  
       // Call the getUser function with the chosen USER_ID
       const userData = await getUser(USER_ID);
-      
+  
       // Verify that the returned data matches the expected data
       expect(userData).toEqual(expectedUserData);
     });
