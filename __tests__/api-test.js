@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import fs from 'fs';
-import { getUsers, getUser, validateUserId } from '../index';
+import { getUsers, getUser, validateUserId, getPostsForUser } from '../index';
 
 // change this value to test with different userId
 // should be a number between 1 and 10
@@ -51,8 +51,8 @@ describe('Get user data', () => {
         expect(post.id).toBeGreaterThanOrEqual(1);
         expect(post.id).toBeLessThanOrEqual(100);
       });
-      console.log(posts)
-      // Verify the number of posts for the chosen USER_ID
+      // it can be an assertion if the user does not have any post but this test reason is to validate the post's ids. 
+      //If the user does not have any post we can not validate it.
     });
   });
 
