@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import fs from 'fs';
-import { getUsers, getUser, validateUserId, getPostsForUser, createPostForUser } from '../index';
+import { getUsers, getUser, validateUserId, getPostsForUser, createPostForUser, deletePosts } from '../index';
 
 // change this value to test with different userId
 // should be a number between 1 and 10
@@ -73,6 +73,14 @@ describe('Get user data', () => {
       expect(jsonResponse.userId).toBe(USER_ID);
       expect(jsonResponse.title).toBe('foo');
       expect(jsonResponse.body).toBe('bar');  
+
+     // We need to delete the post to avoid false validation on the next test run.
+     // Get the posted ID from the JSON response
+      const postId = jsonResponse.id
+
+      // Add the postId value and delete the post
+      await deletePosts(postId);
+
     });
   });
 

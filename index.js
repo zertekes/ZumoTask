@@ -47,3 +47,10 @@ export const createPostForUser = async (userId) => {
 
     return response
 }
+
+export const deletePosts = async (postId) => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+    method: 'DELETE',
+    });
+
+}
