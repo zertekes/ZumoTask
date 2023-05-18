@@ -4,7 +4,7 @@ import fetch from "node-fetch"
 // should be a number between 1 and 10
 const USER_ID = 1
 
-const validateUserId = (userId) => {
+export const validateUserId = (userId) => {
     if (!userId || userId < 1 || userId > 10) {
         throw new Error("userId must be a number between 1 and 10")
     }
@@ -20,7 +20,6 @@ export const getUser = async (userId) => {
     validateUserId(userId)
 
     const users = await getUsers()
-
     // index of user
     return users[userId - 1]
 }
