@@ -41,7 +41,7 @@ describe('Get user data', () => {
 
  // Task 2
 
- describe('getPostsForUser', () => {
+ describe('Get User Posts', () => {
     it('returns associated posts with valid IDs and the number of posts for the chosen USER_ID', async () => {
       // Call the getPostsForUser function with the chosen USER_ID
       const posts = await getPostsForUser(USER_ID);
