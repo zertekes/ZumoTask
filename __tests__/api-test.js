@@ -1,6 +1,7 @@
 import { jest } from '@jest/globals';
 import { getUsers, getUser, validateUserId } from "../index";
 import fs from 'fs';
+import * as api from '../index';
 
 // change this value to test with different userId
 // should be a number between 1 and 10
