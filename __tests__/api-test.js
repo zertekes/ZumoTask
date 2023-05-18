@@ -18,7 +18,8 @@ describe('Mock API tests', () => {
   });
 });
 
-describe('getUser', () => {
+// Task 1
+describe('Get user data', () => {
     it('returns expected user data for chosen USER_ID', async () => {
       // Load the expected data from the JSON file
       const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
@@ -37,3 +38,23 @@ describe('getUser', () => {
       expect(userData).toEqual(expectedUser);
     });
   });
+
+ // Task 2
+
+ describe('getPostsForUser', () => {
+    it('returns associated posts with valid IDs and the number of posts for the chosen USER_ID', async () => {
+      // Call the getPostsForUser function with the chosen USER_ID
+      const posts = await getPostsForUser(USER_ID);
+
+      // Verify that the returned posts contain valid IDs
+      posts.forEach(post => {
+        expect(post.id).toBeGreaterThanOrEqual(1);
+        expect(post.id).toBeLessThanOrEqual(100);
+      });
+      console.log(posts)
+      // Verify the number of posts for the chosen USER_ID
+    });
+  });
+
+ 
+ 
