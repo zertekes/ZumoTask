@@ -19,19 +19,23 @@ describe('Mock API tests', () => {
 });
 
 describe('getUser', () => {
-  it('returns expected user data for chosen USER_ID', async () => {
-    // Load the expected data from the JSON file
-    const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
-    // Mock the getUsers function to return the test data
-    global.getUsers = jest.fn().mockResolvedValue(expectedUserData);
-    // Mock the validateUserId property to prevent errors
-    jest.replaceProperty(global, 'validateUserId', jest.fn());
-    // Call the getUser function with the chosen USER_ID
-    const userData = await getUser(USER_ID);
-    // Find the user data from the test data based on the USER_ID
-    const expectedUser = expectedUserData.find(user => user.id === USER_ID);
-    // Verify that the returned data matches the expected data
-    expect(userData).toEqual(expectedUser);
-  });
-});
+    it('returns expected user data for chosen USER_ID', async () => {
+      // Load the expected data from the JSON file
+      const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
 
+      // Mock the getUsers function to return the test data
+      global.getUsers = jest.fn().mockResolvedValue(expectedUserData);
+
+      // Assign a mock implementation to the validateUserId property
+      global.validateUserId = jest.fn();
+
+      // Call the getUser function with the chosen USER_ID
+      const userData = await getUser(USER_ID);
+      console.log(userData)
+      // Find the user data from the test data based on the USER_ID
+      const expectedUser = expectedUserData.find(user => user.id === USER_ID);
+       console.log(expectedUser)
+      // Verify that the returned data matches the expected data
+      expect(userData).toEqual(expectedUser);
+    });
+  });
