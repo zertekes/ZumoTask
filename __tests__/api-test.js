@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import fs from 'fs';
-import { getUsers, getUser, validateUserId, getPostsForUser, createPostForUser, deletePosts } from '../index';
+import { getUsers, getUser, getPostsForUser, createPostForUser, deletePosts } from '../index';
 
 // change this value to test with different userId
 // should be a number between 1 and 10
@@ -78,9 +78,12 @@ describe('Get user data', () => {
      // Get the posted ID from the JSON response
       const postId = jsonResponse.id
 
-      // Add the postId value and delete the post
+     // Add the postId value and delete the post
       await deletePosts(postId);
 
+    // After checking the Documentation  I realized the following:
+    // Important: resource will not be really updated on the server but it will be faked as if.
+    // Therefore it needs to improve the post validation for example adding a random number to the post and validate it.
     });
   });
 
