@@ -18,16 +18,17 @@ describe('Mock API tests', () => {
   });
 });
 
+
 describe('getUser', () => {
     it('returns expected user data for chosen USER_ID', async () => {
       // Load the expected data from the JSON file
       const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
 
-      // Mock the getUsers property to return the test data
-      jest.replaceProperty(global, 'getUsers', jest.fn().mockResolvedValue(expectedUserData));
+      // Mock the getUsers function to return the test data
+      global.getUsers = jest.fn().mockResolvedValue(expectedUserData);
 
       // Mock the validateUserId property to prevent errors
-      jest.replaceProperty(global, 'validateUserId', jest.fn());
+      jest.spyOn(global, 'validateUserId').mockImplementation(() => {});
 
       // Call the getUser function with the chosen USER_ID
       const userData = await getUser(USER_ID);
