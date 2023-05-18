@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import * as api from "../index";
+import { getUsers, getUser, validateUserId } from "../index";
 import fs from 'fs';
 
 // change this value to test with different userId
@@ -8,41 +8,34 @@ const USER_ID = 2;
 
 describe('Mock API tests', () => {
   it('should get list of all users', async () => {
-    const users = await api.getUsers();
+    const users = await getUsers();
     expect(users.length).toEqual(10);
   });
 
   it('should get user by id', async () => {
-    const user = await api.getUser(USER_ID);
+    const user = await getUser(USER_ID);
     expect(user.id).toEqual(USER_ID);
   });
 });
 
-describe('getUser', () => {
-  it('returns expected user data for chosen USER_ID', async () => {
-    // Load the expected data from the JSON file
-    const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
+  describe('getUser', () => {
+    it('returns expected user data for chosen USER_ID', async () => {
+      // Load the expected data from the JSON file
+      const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
 
-    // Create a mock object with the original functions and mock functions
-    const mockApi = {
-      getUsers: jest.fn().mockResolvedValue(expectedUserData),
-      validateUserId: jest.fn(),
-      originalGetUsers: api.getUsers,
-      originalValidateUserId: api.validateUserId
-    };
+      // Mock the getUsers function to return the test data
+      jest.spyOn(api, 'getUsers').mockResolvedValue(expectedUserData);
 
-    // Replace the original functions with the mock functions
-    api.getUsers = mockApi.getUsers;
-    api.validateUserId = mockApi.validateUserId;
+      // Mock the validateUserId function to prevent errors
+      jest.spyOn(api, 'validateUserId').mockImplementation(() => {});
 
-    // Call the getUser function with the chosen USER_ID
-    const userData = await api.getUser(USER_ID);
+      // Call the getUser function with the chosen USER_ID
+      const userData = await getUser(USER_ID);
 
-    // Verify that the returned data matches the expected data
-    expect(userData).toEqual(expectedUserData[USER_ID - 1]);
+      // Find the user data from the test data based on the USER_ID
+      const expectedUser = expectedUserData.find(user => user.id === USER_ID);
 
-    // Restore the original functions
-    api.getUsers = mockApi.originalGetUsers;
-    api.validateUserId = mockApi.originalValidateUserId;
-  });
+      // Verify that the returned data matches the expected data
+      expect(userData).toEqual(expectedUser);
+    });
 });
