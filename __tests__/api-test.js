@@ -23,11 +23,11 @@ describe('getUser', () => {
       // Load the expected data from the JSON file
       const expectedUserData = JSON.parse(fs.readFileSync('__tests__/test_data.json', 'utf-8'));
 
-      // Mock the getUsers function to return the test data
-      jest.spyOn(global, 'getUsers').mockResolvedValue(expectedUserData);
+      // Mock the getUsers property to return the test data
+      jest.replaceProperty(global, 'getUsers', jest.fn().mockResolvedValue(expectedUserData));
 
-      // Mock the validateUserId function to prevent errors
-      jest.spyOn(global, 'validateUserId').mockImplementation(() => {});
+      // Mock the validateUserId property to prevent errors
+      jest.replaceProperty(global, 'validateUserId', jest.fn());
 
       // Call the getUser function with the chosen USER_ID
       const userData = await getUser(USER_ID);
@@ -39,3 +39,4 @@ describe('getUser', () => {
       expect(userData).toEqual(expectedUser);
     });
   });
+
