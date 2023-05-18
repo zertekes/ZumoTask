@@ -66,8 +66,13 @@ describe('Get user data', () => {
       // Ideally we should create a separate data file with the different response codes.
       expect(response.statusCode).toBe();
 
-      // Verify the create Post function
+      // Parse the JSON response from the response
+      const jsonResponse = await response.json();
 
+      // Validate the post
+      expect(jsonResponse.userId).toBe(USER_ID);
+      expect(jsonResponse.title).toBe('foo');
+      expect(jsonResponse.body).toBe('bar');  
     });
   });
 
