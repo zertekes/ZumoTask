@@ -27,6 +27,9 @@ The below test scenarios are only a sketch, for a complete document I would crea
 Conclusion
 This test plan outlines the key testing activities for the ZUMO mobile application's Registration, Login, and Create Wallet functionalities. By following these test scenarios, performing automated E2E flows, testing on various devices and operating systems, conducting exploratory testing, and ensuring accessibility, the application's quality and user experience can be significantly improved.
 
+Prioritization
+It is important to note that the prioritization may vary based on the application's specific requirements and risks identified during the development process.
+
 
 Before registration:
 - make sure that user can download the application from Play Store (android) / App store (ios)
